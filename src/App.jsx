@@ -14,7 +14,7 @@ function App() {
       </aside>
 
       {/* Folders */}
-      <section className="h-screen overflow-hidden border-r border-gray-200">
+      <section className="h-screen overflow-hidden ">
         <Folders />
       </section>
 
