@@ -3,7 +3,7 @@ import userImg from '../assets/user.png' // adjust path if needed
 
 const Topbar = () => {
   return (
-    <div className="bg-[#F2EDED] border-b border-gray-200 px-3   flex items-center justify-between h-16">
+    <div className="bg-[#F2EDED] border-b border-gray-200 px-3 flex items-center justify-between h-16">
 
       {/* Center: Search */}
       <div className="flex-1 flex justify-center max-w-xl">
@@ -34,7 +34,7 @@ const Topbar = () => {
       </div>
 
       {/* Right: Menu + User + Add */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-3 mr-2">
 
         {/* Menu + User (merged pill, same height as search) */}
         <div className="h-10 flex items-center gap-2 bg-white border border-gray-200 

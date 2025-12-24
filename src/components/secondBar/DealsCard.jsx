@@ -69,12 +69,13 @@ const DealsCard = () => {
           >
             <div className="flex items-center gap-2">
               <img src={item.icon} alt={item.name} className="w-6 h-6 object-contain" />
-              <span className="text-sm font-medium text-gray-400">
-                {item.name}
-              </span>
+              <span className="hidden min-[1540px]:inline text-sm font-medium text-gray-400">
+  {item.name}
+</span>
+
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 min-[1540px]:gap-2 gap-1.5">
               <span className="text-sm font-semibold text-gray-900">
                 {item.amount}
               </span>

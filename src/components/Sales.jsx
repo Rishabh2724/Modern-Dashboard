@@ -91,7 +91,7 @@ const Sales = () => {
   const getPos = (idx) => (idx / (salesData.length - 1)) * 100;
 
   return (
-    <div className="w-full max-w-md p-4 mx-2 rounded-3xl  shadow-sm font-sans">
+    <div className="w-full p-4 rounded-3xl  shadow-sm font-sans">
       
       {/* HEADER */}
       <div className="flex justify-between items-center mb-6">
@@ -194,7 +194,7 @@ const Sales = () => {
                 >
                   {/* Badge */}
                   <div 
-                    className={`absolute -top-2 -right-2 w-3 h-3 rounded-full ${color} flex items-center justify-center z-30`}
+                    className={`absolute -top-2 -right-0.5 w-3 h-3 rounded-full ${color} flex items-center justify-center z-30`}
                   >
                     {badge === "up" && <ArrowUp size={8} className="text-white" strokeWidth={4} />}
                     {badge === "down" && <ArrowDown size={8} className="text-white" strokeWidth={4} />}
@@ -203,7 +203,7 @@ const Sales = () => {
 
                   {/* Icon */}
                   <div className="w-5 h-5  flex items-center justify-center relative z-20">
-                    <img src={icon} alt="" className="w-5 h-5 object-contain" />
+                    <img src={icon} alt="" className="w-5 h-5 mr-3 object-contain" />
                   </div>
                 </div>
               );

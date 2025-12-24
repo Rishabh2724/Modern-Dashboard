@@ -15,7 +15,7 @@ const bars = [
 
 const DealsAmount = () => {
   return (
-    <div className="bg-[#EFEFEF] rounded-[30px] p-2 mx-2">
+    <div className="bg-[#EFEFEF] rounded-[30px] p-2 mx-1">
       
       {/* ================= HEADER ================= */}
       <div className="flex items-center justify-between mt-2">
@@ -65,7 +65,16 @@ const DealsAmount = () => {
       <div className="mt-2">
         <div className="h-[160px] flex items-end justify-between px-2">
           {bars.map((bar) => (
-            <div key={bar.name} className="w-11 h-full flex items-end">
+            <div
+  key={bar.name}
+  className="
+    h-full flex items-end
+    w-11
+    max-[1539px]:w-10
+    max-[1439px]:w-9
+    max-[1359px]:w-8
+  "
+>
               <div
                 className={`relative w-full rounded-xl ${
                   bar.striped ? "bg-gray-100 overflow-hidden" : "bg-white"

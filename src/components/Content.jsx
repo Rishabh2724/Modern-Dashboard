@@ -3,14 +3,14 @@ import SecondBar from "./SecondBar"
 
 const Content = () => {
   return (
-    <div className="h-full w-full grid grid-rows-[4.9fr_6fr] p-6 gap-4 overflow-hidden">
+    <div className="h-full w-full grid grid-rows-[auto_minmax(0,1fr)] gap-4 overflow-hidden p-6">
 
-      {/* First bar — 40% */}
-      <div className="min-h-0 overflow-hidden">
+      {/* First bar — fits content */}
+      <div>
         <FirstBar />
       </div>
 
-      {/* Second bar — 60% (SCROLLS) */}
+      {/* Second bar — takes remaining height */}
       <div className="min-h-0 overflow-y-auto scroll-area">
         <SecondBar />
       </div>

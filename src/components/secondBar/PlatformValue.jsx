@@ -82,21 +82,33 @@ const PlatformValue = () => {
       <div className="flex flex-1 min-h-0">
         
         {/* --- LEFT: PINK STATS SECTION --- */}
-        <div className="w-[200px] bg-[#d9264d] rounded-tr-[32px] text-white flex pt-4 pb-6 pl-5 pr-4 mt-4 shrink-0 relative">
+        <div className="
+  w-[200px] max-[1439px]:w-[140px]
+  bg-[#d9264d] rounded-tr-[32px]
+  text-white flex pt-4 pb-6 pl-5 pr-4 mt-4
+  shrink-0 relative
+">
           <div className="w-10 h-full flex items-center justify-center">
-             <span className="text-xs font-medium tracking-wide uppercase opacity-70 whitespace-nowrap" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
+             <span className="text-xs max-[1439px]:text-[10px] font-medium tracking-wide uppercase opacity-70" style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}>
                Average monthly
              </span>
           </div>
-          <div className="flex-1 flex flex-col justify-center gap-7 pl-2">
+          <div className="flex-1 flex flex-col justify-center gap-7 max-[1439px]:gap-5 pl-2">
+
             <div>
               <p className="text-xs text-pink-200 mb-0.5 font-medium">Revenue</p>
-              <p className="text-2xl font-bold tracking-tight">$18,552</p>
+              <p className="text-2xl max-[1439px]:text-xl font-bold tracking-tight">
+  $18,552
+</p>
+
             </div>
             <div>
               <p className="text-xs text-pink-200 mb-0.5 font-medium">Leads</p>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-xl font-bold">373</span>
+                <span className="text-xl max-[1439px]:text-lg font-bold">
+  373
+</span>
+
                 <span className="text-xs text-pink-200/70 font-medium">97/276</span>
               </div>
             </div>

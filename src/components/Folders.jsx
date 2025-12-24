@@ -1,9 +1,11 @@
 const Folders = () => {
   return (
     <div className="bg-[#F2EDED] h-full w-64 border-r border-gray-200">
-      <div className="p-4 text-[11px] leading-[1.35] text-black">
+      
+      {/* SCROLL CONTAINER */}
+      <div className="h-full overflow-y-auto min-h-0 p-4 text-[11px] leading-[1.35] text-black">
 
-        {/* Header (UNCHANGED) */}
+        {/* Header */}
         <div className="flex items-center gap-1 mb-7 text-base mt-1 font-bold text-black">
           <span>Codename.com</span>
           <ChevronDown />
@@ -16,7 +18,6 @@ const Folders = () => {
           <Item title="Sales list" />
           <Item title="Goals" />
 
-          {/* Dashboard */}
           <div className="flex items-center justify-between py-[3px] font-semibold">
             <span className="px-2">Dashboard</span>
             <PlusCircle />
@@ -58,14 +59,14 @@ const Folders = () => {
           <div className="relative ml-3 border-l border-gray-300 pl-3 mt-[3px]">
             <TreeItem title="Emails received" />
             <TreeItem title="Deal duration" />
-            <TreeItem title="New report" />
+            <TreeItem title="New report" pink />
             <TreeItem title="Analytics" badge={7} last />
             <TreeEnd />
           </div>
         </div>
 
         {/* Footer */}
-        <div className="mt-3 pt-2 border-t flex items-center gap-2 text-[11px] font-semibold">
+        <div className="mt-3 pt-2 border-t flex items-center gap-2 text-[11px] text-gray-500 font-semibold">
           <LinkIcon size={16} />
           <span>Manage folders</span>
         </div>
@@ -75,11 +76,10 @@ const Folders = () => {
   );
 };
 
-
 /* ───────── Components ───────── */
 
 const TopItem = ({ title, icon }) => (
-  <div className="flex items-center gap-2 px-2 py-[3px] cursor-pointer font-semibold">
+  <div className="flex items-center gap-2 px-2 py-[3px] cursor-pointer text-gray-500 font-semibold">
     {icon === "star" && (
       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="1.4" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round"
@@ -104,7 +104,7 @@ const Item = ({ title }) => (
   </div>
 );
 
-const TreeItem = ({ title, badge, caret, last, className = "" }) => (
+const TreeItem = ({ title, badge, caret, last,pink, className = "" }) => (
   <div className={`relative flex items-center justify-between py-[4px] ${className}`}>
     <span className="absolute -left-3 top-1/2 w-3 border-t border-gray-300" />
 
@@ -113,7 +113,7 @@ const TreeItem = ({ title, badge, caret, last, className = "" }) => (
     )}
 
     <div className="flex items-center justify-between w-full">
-      <span className="font-semibold">{title}</span>
+      <span className={`font-semibold ${pink ? 'text-[#d9264d]' : ''}`}>{title}</span>
       {caret && <ChevronUp />}
     </div>
 
@@ -159,4 +159,3 @@ const ChevronUp = () => (
 );
 
 export default Folders;
-  

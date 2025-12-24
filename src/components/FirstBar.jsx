@@ -5,16 +5,13 @@ import UsersCard from "./FirstBar/UsersCard"
 
 const FirstBar = () => {
   return (
-     <div className="w-full flex flex-col gap-4">
-
+    <div className="w-full h-full flex flex-col gap-4">
       
       {/* USERS BAR */}
-      <div className="w-full">
-        <UsersCard />
-      </div>
+      <UsersCard />
 
       {/* other cards */}
-      <NewsReportCard   className="w-full"/>
+      <NewsReportCard />
       <RevenueCard />
       <ContributionsCard />
 
@@ -23,3 +20,4 @@ const FirstBar = () => {
 }
 
 export default FirstBar
+
