@@ -11,7 +11,7 @@ const TopSalesCard = () => {
       {/* Main Card */}
       <div className="w-full h-[100px] rounded-2xl bg-white border border-gray-200 px-3 py-2 flex flex-col justify-between relative z-10 shadow-sm overflow-hidden">
         
-        <span className="text-[10px] font-medium text-gray-500 truncate">
+        <span className="text-[10px] max-[1000px]:text-[14px] font-medium text-gray-500 truncate">
           Top sales
         </span>
 

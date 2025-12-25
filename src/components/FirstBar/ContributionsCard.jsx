@@ -72,7 +72,8 @@ const ContributionsBar = () => {
           <div
             key={item.id}
             style={{ width: `${item.width}%` }}
-            className="flex items-center justify-between bg-white rounded-full mx-[2px] px-2 py-1"
+            // Added justify-center for mobile (when only image shows) and justify-between for desktop
+            className="flex items-center justify-center sm:justify-between bg-white rounded-full mx-[2px] px-2 py-1"
           >
             {/* LEFT */}
             <div className="flex items-center gap-1.5 min-w-0">
@@ -88,13 +89,14 @@ const ContributionsBar = () => {
                 </div>
               )}
 
-              <span className="text-[13px] font-semibold text-black truncate">
+              {/* AMOUNT: Hidden on mobile, visible on sm+ */}
+              <span className="hidden sm:block text-[13px] font-semibold text-black truncate">
                 {item.amount}
               </span>
             </div>
 
-            {/* RIGHT */}
-            <span className="text-[12px] font-medium text-gray-500">
+            {/* RIGHT (PERCENTAGE): Hidden on mobile, visible on sm+ */}
+            <span className="hidden sm:block text-[12px] font-medium text-gray-500">
               {item.percent.toFixed(2)}%
             </span>
           </div>

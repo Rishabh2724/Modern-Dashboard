@@ -7,13 +7,17 @@ import { Settings, Download, ExternalLink } from "lucide-react"
 
 const UsersBar = () => {
   return (
-    <div className="w-full flex flex-row items-center min-w-0 h-12">
+    <div className="w-full flex flex-row items-center h-12 gap-2">
 
-      {/* LEFT */}
-      <div className="flex flex-row items-center gap-2">
+      {/* ─── LEFT: SCROLLABLE USER LIST ─── */}
+      {/* flex-1: Takes remaining space
+          min-w-0: Allows it to shrink below content size
+          overflow-x-auto: Enables horizontal scrolling for users if space is tight 
+          no-scrollbar: Hides the scrollbar for a clean look */}
+      <div className="flex-1 flex flex-row items-center gap-2 overflow-x-auto no-scrollbar min-w-0">
 
         {/* + button */}
-        <button className="w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-base text-gray-600 hover:bg-gray-100">
+        <button className="flex-shrink-0 w-8 h-8 rounded-full border border-gray-200 flex items-center justify-center text-base text-gray-600 hover:bg-gray-100">
           +
         </button>
 
@@ -21,34 +25,39 @@ const UsersBar = () => {
         <UserPill img={eren} name="Eren Y." />
         <UserPill img={mikasa} name="Mikasa A." />
 
-        {/* Codename logo */}
-        {/* Codename logo — pill style */}
-        <div className="w-7 h-7 rounded-full border border-gray-200 bg-white flex items-center justify-center">
-        <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center">
-            <span className="text-[10px] font-semibold leading-none">C</span>
-        </div>
+        {/* Codename logo - Hidden on mobile to save space */}
+        <div className="hidden md:flex flex-shrink-0 w-7 h-7 rounded-full border border-gray-200 bg-white items-center justify-center">
+            <div className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center">
+                <span className="text-[10px] font-semibold leading-none">C</span>
+            </div>
         </div>
 
       </div>
 
-      {/* RIGHT */}
-      <div className="ml-auto flex flex-row items-center gap-2">
+      {/* ─── RIGHT: FIXED ICONS (ALWAYS VISIBLE) ─── */}
+      {/* flex-shrink-0: ensures these NEVER get pushed off screen or squashed */}
+      <div className="flex flex-row items-center gap-1 md:gap-2 flex-shrink-0">
         <IconButton><Settings size={16} /></IconButton>
         <IconButton><Download size={16} /></IconButton>
         <IconButton><ExternalLink size={16} /></IconButton>
       </div>
+
     </div>
   )
 }
 
+/* ─── COMPONENTS ─── */
+
 const UserPill = ({ img, name }) => (
-  <div className="flex flex-row items-center gap-2 px-3 py-1 border border-gray-200 rounded-full bg-white hover:bg-gray-50 cursor-pointer">
+  // flex-shrink-0 ensures the pill doesn't get squashed, it will just scroll out of view if needed
+  <div className="flex-shrink-0 flex flex-row items-center gap-0 md:gap-2 p-1 md:px-3 md:py-1 border border-gray-200 rounded-full bg-white hover:bg-gray-50 cursor-pointer transition-all">
     <img
       src={img}
       alt={name}
       className="w-5 h-5 rounded-full object-cover"
     />
-    <span className="text-xs font-medium text-gray-800 whitespace-nowrap">
+    {/* Name hidden on mobile */}
+    <span className="hidden md:block text-xs font-medium text-gray-800 whitespace-nowrap">
       {name}
     </span>
   </div>
@@ -61,3 +70,4 @@ const IconButton = ({ children }) => (
 )
 
 export default UsersBar
+

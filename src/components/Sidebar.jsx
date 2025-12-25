@@ -5,7 +5,7 @@ const iconWrapper =
 
 const Sidebar = () => {
   return (
-    <div className="bg-[#F2EDED] h-full w-full flex flex-col items-center py-4 ">
+    <div className="bg-[#F2EDED] h-full w-full flex flex-col items-center py-4">
 
       {/* Top icons */}
       <div className="flex flex-col items-center gap-4 flex-1">

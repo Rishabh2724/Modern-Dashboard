@@ -5,6 +5,7 @@ import instagramIcon from "../../assets/instagram.svg";
 import behanceIcon from "../../assets/behance.svg";
 import googleIcon from "../../assets/google.svg";
 import bag from "../../assets/bag.png"
+
 const bars = [
   { name: "Behance", value: 55, icon: behanceIcon },
   { name: "Dribbble", value: 90, icon: dribbleIcon },
@@ -66,15 +67,20 @@ const DealsAmount = () => {
         <div className="h-[160px] flex items-end justify-between px-2">
           {bars.map((bar) => (
             <div
-  key={bar.name}
-  className="
-    h-full flex items-end
-    w-11
-    max-[1539px]:w-10
-    max-[1439px]:w-9
-    max-[1359px]:w-8
-  "
->
+              key={bar.name}
+              className="
+                h-full flex items-end
+                
+                /* MOBILE: Reduced further (32px -> 36px) */
+                w-12 sm:w-9
+                
+                /* DESKTOP: Keep standard grid sizing */
+                lg:w-8
+                min-[1360px]:w-9
+                min-[1440px]:w-10
+                min-[1540px]:w-11
+              "
+            >
               <div
                 className={`relative w-full rounded-xl ${
                   bar.striped ? "bg-gray-100 overflow-hidden" : "bg-white"
@@ -105,7 +111,7 @@ const DealsAmount = () => {
         </div>
 
         {/* ================= FOOTER ================= */}
-          <div className="my-2 mx-2 pt-3  text-sm leading-tight">
+        <div className="my-2 mx-2 pt-3  text-sm leading-tight">
           <p className="text-gray-800">Deals amount</p>
           <p className="flex items-center gap-1 text-[14px] font-normal text-gray-500">
             by referrer category

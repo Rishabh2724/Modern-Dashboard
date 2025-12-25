@@ -1,6 +1,6 @@
 const Folders = () => {
   return (
-    <div className="bg-[#F2EDED] h-full w-64 border-r border-gray-200">
+    <div className="bg-[#F2EDED] h-full w-64 ">
       
       {/* SCROLL CONTAINER */}
       <div className="h-full overflow-y-auto min-h-0 p-4 text-[11px] leading-[1.35] text-black">
