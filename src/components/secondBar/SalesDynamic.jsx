@@ -95,10 +95,7 @@ const SalesDynamic = () => {
             </div>
           </div>
 
-          {/* PLATFORM GRID FIX:
-             Mobile: Simple Vertical Stack (flex-col) - No collision possible.
-             Desktop: Your original 4x4 Grid.
-          */}
+          {/* PLATFORM GRID */}
           <div className="w-full">
             <div className="flex flex-col lg:grid lg:grid-cols-4 lg:grid-rows-4 gap-2 lg:h-48">
 
@@ -176,7 +173,8 @@ const SalesDynamic = () => {
       </UserBlock>
 
       {/* ================= USER ROW 3 ================= */}
-      <div className="mt-4">
+      {/* ADDED mb-10 for mobile, reset with lg:mb-0 for desktop */}
+      <div className="mt-4 mb-10 lg:mb-0">
         <UserRow
           img={user3}
           name="Eren Y."
