@@ -5,8 +5,6 @@ import behance from "../assets/behance.svg";
 import dribbble from "../assets/dribble.png";
 import google from "../assets/google.svg";
 
-/* ================= DATA ================= */
-
 const salesData = [
   { week: "W1", value: 32 },
   { week: "W3", value: 38 },
@@ -25,18 +23,17 @@ const benchmarkData = [
   { value: 50 },
 ];
 
-// Events acting as "Breaks" in the timeline
 const events = [
   { index: 1, icon: behance, badge: "up", color: "bg-rose-500" },
   { index: 3, icon: dribbble, badge: "down", color: "bg-gray-900" },
   { index: 5, icon: google, badge: "star", color: "bg-rose-500" },
 ];
 
-/* ================= HELPERS ================= */
-
+// Generates a smooth Cubic Bezier path string from data points
 const createCurve = (data) => {
   const points = data.map((d, i) => {
     const x = (i / (data.length - 1)) * 100;
+    // Map value (20-70 range) to Y coordinate (45-5 range for SVG)
     const y = 45 - ((d.value - 20) / (70 - 20)) * 40;
     return { x, y };
   });
@@ -50,6 +47,7 @@ const createCurve = (data) => {
     const p2 = points[i + 1];
     const p3 = points[i + 2] || p2;
 
+    // Control points for smooth interpolation
     const cp1x = p1.x + (p2.x - p0.x) * 0.15;
     const cp1y = p1.y + (p2.y - p0.y) * 0.15;
     const cp2x = p2.x - (p3.x - p1.x) * 0.15;
@@ -60,18 +58,13 @@ const createCurve = (data) => {
   return d;
 };
 
-/* ================= COMPONENT ================= */
-
 const Sales = () => {
   const salesPath = createCurve(salesData);
   const benchmarkPath = createCurve(benchmarkData);
-
-  // LOGIC: Create timeline segments between the events
-  // We start at index 0 and draw a line to the first event, then from event to event.
+  
+  // Calculate segments for the bottom gradient line
   const timelineSegments = [];
   let currentIndex = 0;
-
-  // Define colors for the segments (Orange -> Yellow -> Green)
   const segmentColors = [
     "from-orange-400 to-orange-300",
     "from-orange-300 to-yellow-300",
@@ -87,29 +80,27 @@ const Sales = () => {
     currentIndex = event.index;
   });
 
-  // Helper to convert data index to percentage position
   const getPos = (idx) => (idx / (salesData.length - 1)) * 100;
 
   return (
-    <div className="w-full p-4 rounded-3xl  shadow-sm font-sans">
-      
-      {/* HEADER */}
+    <div className="w-full p-4 rounded-3xl shadow-sm font-sans">
+      {/* Header */}
       <div className="flex justify-between items-center mb-6">
         <p className="text-base font-bold text-gray-900">Sales dynamic</p>
         <ArrowUpRight size={20} className="text-gray-900" />
       </div>
 
-      {/* CHART AREA */}
+      {/* Chart Container */}
       <div className="relative h-[120px] w-full">
         
-        {/* X AXIS LABELS */}
+        {/* X-Axis Labels */}
         <div className="absolute top-0 left-0 right-0 flex justify-between text-xs font-medium text-gray-400 z-10">
           {salesData.map((d) => (
             <span key={d.week} className="w-6 text-center">{d.week}</span>
           ))}
         </div>
 
-        {/* SVG CHART */}
+        {/* Main Chart SVG */}
         <svg
           viewBox="0 0 100 50"
           preserveAspectRatio="none"
@@ -126,7 +117,7 @@ const Sales = () => {
              /> 
           ))}
 
-          {/* Benchmark Line */}
+          {/* Benchmark Line (Dashed) */}
           <path
             d={benchmarkPath}
             fill="none"
@@ -135,7 +126,7 @@ const Sales = () => {
             strokeDasharray="2 1"
           />
 
-          {/* Sales Line */}
+          {/* Sales Line (Solid) */}
           <path
             d={salesPath}
             fill="none"
@@ -145,39 +136,32 @@ const Sales = () => {
           />
         </svg>
 
-        {/* BOTTOM TIMELINE (BROKEN LINES & LOGOS) */}
-        {/* We use a container that sits at the bottom */}
+        {/* Bottom Timeline with Icons */}
         <div className="absolute -bottom-1 left-0 right-0 h-8">
             
-            {/* 1. Render the broken Line Segments */}
+            {/* Gradient Line Segments */}
             {timelineSegments.map((seg, i) => {
                 const left = getPos(seg.start);
                 const right = getPos(seg.end);
-                // Calculate width. We subtract a small amount (e.g. 4%) to leave a gap for the icon
-                // except for the very start (left)
                 const width = right - left;
                 
-                // Gap adjustment: The line shouldn't touch the center of the icon
-                // We add/subtract margin to "break" it visually around the nodes
-                const gap = 3; // 3% gap
+                // Gap creates visual spacing around the icon nodes
+                const gap = 3; 
 
                 return (
                   <div
                     key={i}
                     className={`absolute h-1.5 rounded-full bg-gradient-to-r ${seg.color}`}
                     style={{
-                        // If it's the first segment, start at 0. Otherwise start after the previous icon
                         left: `${i === 0 ? left : left + gap}%`,
-                        // If it's the last segment (connecting to an icon at the very end), full width
-                        // Otherwise stop before the next icon
                         width: `${width - (i === 0 ? gap : gap * 2)}%`,
-                        bottom: "4px" // vertically align with icons
+                        bottom: "4px"
                     }}
                   />
                 );
             })}
 
-            {/* 2. Render the Icons (The "Breakages") */}
+            {/* Event Icons */}
             {events.map(({ index, icon, badge, color }) => {
               const leftPos = getPos(index);
               
@@ -192,25 +176,24 @@ const Sales = () => {
                     zIndex: 20
                   }}
                 >
-                  {/* Badge */}
-                  <div 
-                    className={`absolute -top-2 -right-0.5 w-3 h-3 rounded-full ${color} flex items-center justify-center z-30`}
-                  >
+                  <div className={`absolute -top-2 -right-0.5 w-3 h-3 rounded-full ${color} flex items-center justify-center z-30`}>
                     {badge === "up" && <ArrowUp size={8} className="text-white" strokeWidth={4} />}
                     {badge === "down" && <ArrowDown size={8} className="text-white" strokeWidth={4} />}
                     {badge === "star" && <Star size={6} className="text-white fill-white" />}
                   </div>
 
-                  {/* Icon */}
-                  <div className="w-5 h-5  flex items-center justify-center relative z-20">
-                    <img src={icon} alt="" className="w-5 h-5 mr-3 object-contain" />
+                  <div className="w-5 h-5 flex items-center justify-center relative z-20">
+                    <img 
+                      src={icon} 
+                      alt="" 
+                      // Responsive margin: mr-3 on mobile, removed on xl screens
+                      className="w-5 h-5 mr-3 xl:mr-0 object-contain" 
+                    />
                   </div>
                 </div>
               );
             })}
-
         </div>
-
       </div>
     </div>
   );

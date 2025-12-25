@@ -8,8 +8,10 @@ import user3 from "../../assets/user3.png";
 
 const PlatformValue = () => {
   const [mode, setMode] = useState("revenue");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const MAX_Y = 15000;
+  const menuOptions = ["Revenue", "Leads", "W/L"];
 
   const chartData = [
     {
@@ -43,11 +45,14 @@ const PlatformValue = () => {
 
   const gridLevels = ["$15,000", "$10,000", "$5,000", "$0"];
 
+  const getCurrentLabel = () => {
+    return menuOptions.find((opt) => opt.toLowerCase() === mode) || "Revenue";
+  };
+
   return (
     <div className="bg-[#f3f3f3] rounded-[32px] w-full h-full overflow-hidden flex flex-col">
-
       {/* ================= HEADER ================= */}
-      <div className="px-6 pt-6 pb-2 flex justify-between items-start shrink-0">
+      <div className="px-6 pt-6 pb-2 flex justify-between items-start shrink-0 relative z-40">
         <div className="flex items-center gap-3">
           <img src={dribbbleIcon} className="w-10 h-10" alt="Dribbble" />
           <div>
@@ -63,33 +68,77 @@ const PlatformValue = () => {
           </div>
         </div>
 
-        <div className="flex bg-white rounded-full p-1 shadow-sm">
-          {["Revenue", "Leads", "W/L"].map((item) => (
+        {/* === RIGHT SIDE CONTROLS === */}
+        <div>
+          {/* Mobile Dropdown */}
+          <div className="md:hidden relative">
             <button
-              key={item}
-              onClick={() => setMode(item.toLowerCase())}
-              className={`px-4 py-1.5 text-sm font-medium rounded-xl
-                ${
-                  mode === item.toLowerCase()
-                    ? "bg-black text-white"
-                    : "text-gray-500"
-                }`}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+              className="flex items-center gap-2 bg-white px-4 py-2 rounded-xl shadow-sm text-sm font-bold text-gray-900"
             >
-              {item}
+              {getCurrentLabel()}
+              <ChevronDown
+                size={16}
+                className={`transition-transform duration-200 ${
+                  isDropdownOpen ? "rotate-180" : ""
+                }`}
+              />
             </button>
-          ))}
+
+            {isDropdownOpen && (
+              <div className="absolute right-0 top-full mt-2 w-32 bg-white rounded-xl shadow-lg border border-gray-100 p-1 flex flex-col gap-1 z-50">
+                {menuOptions.map((item) => (
+                  <button
+                    key={item}
+                    onClick={() => {
+                      setMode(item.toLowerCase());
+                      setIsDropdownOpen(false);
+                    }}
+                    className={`px-3 py-2 text-sm font-medium rounded-lg text-left w-full transition-colors
+                      ${
+                        mode === item.toLowerCase()
+                          ? "bg-black text-white"
+                          : "text-gray-500 hover:bg-gray-50"
+                      }`}
+                  >
+                    {item}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Desktop Tabs */}
+          <div className="hidden md:flex bg-white rounded-full p-1 shadow-sm">
+            {menuOptions.map((item) => (
+              <button
+                key={item}
+                onClick={() => setMode(item.toLowerCase())}
+                className={`px-4 py-1.5 text-sm font-medium rounded-xl transition-all
+                  ${
+                    mode === item.toLowerCase()
+                      ? "bg-black text-white"
+                      : "text-gray-500"
+                  }`}
+              >
+                {item}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* ================= BODY ================= */}
       <div className="flex flex-1 min-h-0 flex-col md:flex-row">
-
         {/* === AVERAGE MONTHLY === */}
         <div
           className="
             bg-[#d9264d] text-white
             md:w-[200px] max-[1439px]:md:w-[140px]
-            md:rounded-tr-[32px]
+            
+            /* UPDATED BORDERS HERE */
+            rounded-tr-[32px] rounded-bl-[32px] md:rounded-bl-none
+            
             mt-4
             px-4 py-3 md:pt-4 md:pb-6 md:pl-5 md:pr-4
             flex items-center md:items-stretch
@@ -98,7 +147,7 @@ const PlatformValue = () => {
         >
           {/* Mobile label (left) */}
           <div className="flex items-center md:hidden min-w-[92px]">
-            <span className="text-[11px] font-medium uppercase opacity-80">
+            <span className="text-[10px] font-medium uppercase opacity-80">
               Average monthly
             </span>
           </div>
@@ -106,36 +155,51 @@ const PlatformValue = () => {
           {/* Desktop vertical label */}
           <div className="hidden md:flex w-10 h-full items-center justify-center">
             <span
-              className="text-xs font-medium uppercase opacity-70"
-              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+              className="text-[10px] font-medium uppercase opacity-70"
+              style={{
+                writingMode: "vertical-rl",
+                transform: "rotate(180deg)",
+              }}
             >
               Average monthly
             </span>
           </div>
 
           {/* Stats: row on mobile, column on desktop */}
-          <div className="flex flex-1 flex-row md:flex-col justify-between md:justify-center gap-4 md:gap-7">
+          <div className="flex flex-1 flex-row md:flex-col justify-between md:justify-center gap-4 md:gap-6">
             {/* Revenue */}
             <div className="flex flex-col">
-              <p className="text-xs text-pink-200 mb-0.5 font-medium">Revenue</p>
-              <p className="text-lg md:text-2xl font-bold tracking-tight">$18,552</p>
+              <p className="text-[10px] text-pink-200 mb-0.5 font-medium">
+                Revenue
+              </p>
+              <p className="text-base md:text-xl font-bold tracking-tight">
+                $18,552
+              </p>
             </div>
 
             {/* Leads */}
             <div className="flex flex-col">
-              <p className="text-xs text-pink-200 mb-0.5 font-medium">Leads</p>
+              <p className="text-[10px] text-pink-200 mb-0.5 font-medium">
+                Leads
+              </p>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-lg md:text-xl font-bold">373</span>
-                <span className="text-xs text-pink-200/70 font-medium">97/276</span>
+                <span className="text-base md:text-lg font-bold">373</span>
+                <span className="text-[10px] text-pink-200/70 font-medium">
+                  97/276
+                </span>
               </div>
             </div>
 
             {/* Win / Lose */}
             <div className="flex flex-col">
-              <p className="text-xs text-pink-200 mb-0.5 font-medium">Win/lose</p>
+              <p className="text-[10px] text-pink-200 mb-0.5 font-medium">
+                Win/lose
+              </p>
               <div className="flex items-baseline gap-1.5">
-                <span className="text-lg md:text-xl font-bold">16%</span>
-                <span className="text-xs text-pink-200/70 font-medium">51/318</span>
+                <span className="text-base md:text-lg font-bold">16%</span>
+                <span className="text-[10px] text-pink-200/70 font-medium">
+                  51/318
+                </span>
               </div>
             </div>
           </div>
@@ -143,7 +207,6 @@ const PlatformValue = () => {
 
         {/* === CHART === */}
         <div className="flex-1 relative pt-6 md:pt-8 pr-4 md:pr-6 pl-4 min-w-0 h-[260px] md:h-auto">
-
           {/* Grid */}
           <div className="absolute inset-0 flex flex-col justify-between pl-4 pr-6 pt-[50px] pb-[30px] pointer-events-none">
             {gridLevels.map((label, i) => (
@@ -167,7 +230,11 @@ const PlatformValue = () => {
                       className={`w-6 rounded-t-md relative
                         ${user.variant === "solid" ? "bg-gray-200" : ""}
                         ${user.variant === "dark" ? "bg-gray-300" : ""}
-                        ${user.variant === "striped" ? "border border-gray-200/50" : ""}`}
+                        ${
+                          user.variant === "striped"
+                            ? "border border-gray-200/50"
+                            : ""
+                        }`}
                       style={{
                         height: `${(user.value / MAX_Y) * 100}%`,
                         backgroundImage:
@@ -187,7 +254,11 @@ const PlatformValue = () => {
 
                       {/* Avatar */}
                       <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-4 h-4 rounded-full border border-white overflow-hidden shadow-sm z-20 bg-white">
-                        <img src={user.avatar} className="w-full h-full object-cover" alt="" />
+                        <img
+                          src={user.avatar}
+                          className="w-full h-full object-cover"
+                          alt=""
+                        />
                       </div>
                     </div>
                   ))}
